@@ -1,0 +1,22 @@
+<div class="home">
+    <div class="container">
+<div class="title">Nitro QA Squad</div>
+<div class="description">Testrail execution reporter</div>
+</div>
+<div action="" class="form-group url-form">
+<p class="child">Ingresa la url de ejecución de testrail aquí:</p>
+<input [(ngModel)]="url" class="form-control child" type="text" id="url" placeholder="https://alicorpdigital.testrail.io/index.php?/runs/view/1844&group_by=cases:section_id&group_order=asc&group_id=11565" autocomplete="off">
+<button class="child" (click)="generateReport()">Generar reporte</button>
+
+  <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
+
+
+</div>
+
+  <div class="spinner-overlay" *ngIf="loading">
+    <div class="spinner"></div>
+    <span>Generando Reporte de pruebas...</span>
+  </div>
+
+
+</div>
