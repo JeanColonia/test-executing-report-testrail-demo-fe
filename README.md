@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # TestExecutingReportTestrailDemoFe
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.2.
@@ -58,7 +57,3 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 ## Additional Resources
 
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-=======
-# test-executing-report-testrail-demo-fe
-TestRail reporting project
->>>>>>> 65a3eb5337807b016ad64b779bda87cc4277254b
