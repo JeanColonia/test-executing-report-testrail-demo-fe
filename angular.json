@@ -15,6 +15,7 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
+            "outputPath": "dist/test-executing-report-testrail-demo-fe",
             "assets": [
               {
                 "glob": "**/*",
