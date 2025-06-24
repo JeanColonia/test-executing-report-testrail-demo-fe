@@ -7,7 +7,7 @@ import { interval, map, Observable, switchMap, takeWhile } from 'rxjs';
 })
 export class FormService {
 
-private baseUrl = 'http://localhost:8080/api/pdf';
+private baseUrl = 'https://vocational-letizia-jeancolonia-d904627c.koyeb.app/api/pdf';
 
    constructor(private http: HttpClient) {}
 
