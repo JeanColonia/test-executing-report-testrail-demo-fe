@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FormService } from '../services/form-service';
 import { NgIf } from '@angular/common';
@@ -13,37 +13,49 @@ import { NgIf } from '@angular/common';
 })
 export class UrlForm {
 
+ loading = false;
+  message = '';
+  downloadUrl: string | null = null;
+  @ViewChild('urlInput') urlInput!: ElementRef;
 
-  url:string ='';
-  loading: boolean = false;
-  errorMessage: string='';
+  constructor(private pdfService: FormService) {}
 
-  constructor(private formService: FormService){}
-
-  generateReport(){
-    const trimmedUrl = this.url.trim();
-    if(!trimmedUrl) return;
+  generate(url: string) {
     this.loading = true;
-    this.errorMessage= '';
+    this.message = 'Procesando...';
+    this.downloadUrl = null;
 
-
-    this.formService.generateReport(trimmedUrl).subscribe(blob => {
-      this.url = '';
-      const fileURL = window.URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href = fileURL;
-      link.download = 'Reporte_de_pruebas.pdf'
-      link.click();
-      URL.revokeObjectURL(fileURL);
-      this.loading = false;
-    },
-    error => {
-      console.error('Error al generar el reporte PDF', error);
-      this.url = '';
-      this.errorMessage = 'Error al generar el reporte, revisa si la URL tiene una estructura similiar a la siguiente: \n https://alicorpdigital.testrail.io/index.php?/runs/view/1864&group_by=cases:section_id&group_order=asc&group_id=11585';
-      this.loading = false;
-    }
-  )
+    this.pdfService.generatePdf(url).subscribe({
+      next: jobId => {
+        this.message = 'Generando PDF, espera un momento...';
+        this.pdfService.waitUntilReady(jobId).subscribe({
+          next: ready => {
+            if (ready) {
+              this.message = '¡PDF listo! Haciendo descarga...';
+              this.pdfService.downloadPdf(jobId).subscribe(blob => {
+                const fileURL = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = fileURL;
+                a.download = 'Reporte_de_pruebas.pdf';
+                a.click();
+                URL.revokeObjectURL(fileURL);
+                 this.urlInput.nativeElement.value = '';
+                this.message = 'Descarga completada.';
+                this.loading = false;
+              });
+            }
+          },
+          error: err => {
+            this.message = 'Error al generar PDF';
+            this.loading = false;
+          }
+        });
+      },
+      error: err => {
+        this.message = 'Error al enviar petición';
+        this.loading = false;
+      }
+    });
   }
   
 }

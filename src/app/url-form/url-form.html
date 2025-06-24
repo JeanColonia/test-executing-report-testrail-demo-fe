@@ -5,10 +5,10 @@
 </div>
 <div action="" class="form-group url-form">
 <p class="child">Ingresa la url de ejecución de testrail aquí:</p>
-<input [(ngModel)]="url" class="form-control child" type="text" id="url" placeholder="https://alicorpdigital.testrail.io/index.php?/runs/view/1844&group_by=cases:section_id&group_order=asc&group_id=11565" autocomplete="off">
-<button class="child" (click)="generateReport()">Generar reporte</button>
+<input #urlInput type="text" class="form-control child" type="text" id="url" placeholder="https://alicorpdigital.testrail.io/index.php?/runs/view/1844&group_by=cases:section_id&group_order=asc&group_id=11565" autocomplete="off">
+<button class="child" (click)="generate(urlInput.value)">Generar reporte</button>
 
-  <span *ngIf="errorMessage" class="error-message">{{ errorMessage }}</span>
+  <span *ngIf="message" class="error-message">{{ message  }}</span>
 
 
 </div>
