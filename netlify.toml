@@ -1,0 +1,9 @@
+[build]
+    command = "ng build"
+    publish = "dist/test-executing-report-testrail-demo-fe/browser"
+
+[[redirects]]
+    from = "/*"
+    to = "/index.html"
+    status = 200
+    
