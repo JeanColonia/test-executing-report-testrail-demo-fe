@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FormService {
 
-private apiUrl = 'https://test-executing-report-testrail-demo.onrender.com/api/pdf/generate';
+private apiUrl = 'https://vocational-letizia-jeancolonia-d904627c.koyeb.app/api/pdf/generate';
 
   constructor(private http: HttpClient) { }
 
