@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FormService {
 
-private apiUrl = 'http://localhost:8080/api/pdf/generate';
+private apiUrl = 'https://test-executing-report-testrail-demo.onrender.com/api/pdf/generate';
 
   constructor(private http: HttpClient) { }
 
