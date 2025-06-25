@@ -5,7 +5,7 @@
   </div>
 
   <div class="form-group url-form">
-    <label for="url" class="child">Ingresa la URL de ejecución de Testrail:</label>
+    <p for="url" class="child">Ingresa la URL de ejecución de Testrail:</p>
     <input
       #urlInput
       id="url"
@@ -26,6 +26,6 @@
 
   <div class="spinner-overlay" *ngIf="loading">
     <div class="spinner"></div>
-    <span>Generando Reporte de pruebas...</span>
+    <span>Generando PDF. Espera un momento...</span>
   </div>
 </div>
