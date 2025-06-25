@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { interval, map, Observable, switchMap, takeWhile } from 'rxjs';
+import { catchError, interval, map, Observable, of, switchMap, takeWhile } from 'rxjs';
 
 type PdfJobStatus = 'PENDING' | 'DONE' | 'FAILED' | 'NOT_FOUND';
 
@@ -9,7 +9,7 @@ type PdfJobStatus = 'PENDING' | 'DONE' | 'FAILED' | 'NOT_FOUND';
 })
 export class FormService {
 
-private baseUrl = 'https://vocational-letizia-jeancolonia-d904627c.koyeb.app/api/pdf';
+private baseUrl = 'https://test-executing-report-testrail-demo.fly.dev/api/pdf';
 
   constructor(private http: HttpClient) {}
 
@@ -26,10 +26,12 @@ private baseUrl = 'https://vocational-letizia-jeancolonia-d904627c.koyeb.app/api
   }
 
   waitUntilReady(jobId: string): Observable<boolean> {
-    return interval(3000).pipe(
-      switchMap(() => this.getStatus(jobId)),
-      map(status => status === 'DONE'),
-      takeWhile(done => !done, true)
-    );
-  }
+  return interval(3000).pipe(
+    switchMap(() => this.getStatus(jobId).pipe(
+      catchError(() => of("PROCESSING"))
+    )),
+    map(status => status === 'READY'),
+    takeWhile(ready => !ready, true)
+  );
+}
 }
