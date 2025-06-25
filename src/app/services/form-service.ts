@@ -24,14 +24,14 @@ private baseUrl = 'https://test-executing-report-testrail-demo.fly.dev/api/pdf';
   downloadPdf(jobId: string): Observable<Blob> {
     return this.http.get(`${this.baseUrl}/${jobId}`, { responseType: 'blob' });
   }
-
-  waitUntilReady(jobId: string): Observable<boolean> {
+  
+waitUntilReady(jobId: string): Observable<boolean> {
   return interval(3000).pipe(
     switchMap(() => this.getStatus(jobId).pipe(
       catchError(() => of("PROCESSING"))
     )),
     map(status => status === 'READY'),
-    takeWhile(ready => !ready, true)
+    takeWhile(ready => !ready, true) // se detiene cuando READY
   );
 }
 }

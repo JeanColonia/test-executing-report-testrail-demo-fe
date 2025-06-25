@@ -15,6 +15,7 @@
       autocomplete="off"
       [disabled]="loading"
     />
+    
 
     <button class="child" (click)="generate(urlInput.value)" [disabled]="loading || !urlInput.value.trim()">
       Generar reporte
